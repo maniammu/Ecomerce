@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopX | Add Product</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Shop<span>X</span></div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/products/">Products</a>
+            <a href="/add_product/" class="active">Add Product</a>
+            <a href="/about/">About</a>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h1>Create New Listing</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Product Title</label>
+                <input type="text" name="name" placeholder="e.g. Wireless Headset Pro" required>
+            </div>
+            <div class="form-group">
+                <label>Retail Price (INR)</label>
+                <input type="number" name="price" placeholder="e.g. 4999" required>
+            </div>
+            <div class="form-group">
+                <label>Product Category</label>
+                <input type="text" name="type" placeholder="e.g. Electronics, Fashion" required>
+            </div>
+            <div class="form-group">
+                <label>Product Image Link</label>
+                <input type="url" name="image" placeholder="https://example.com/image.jpg" required>
+            </div>
+            <button type="submit">Publish Product</button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopX | Inventory Manager</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Shop<span>X</span></div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/products/" class="active">Products</a>
+            <a href="/add_product/">Add Product</a>
+            <a href="/about/">About</a>
+        </div>
+    </nav>
+
+    <div class="section-header">
+        <h1 class="title">System Inventory</h1>
+    </div>
+
+    <div class="products">
+        {% for product in products %}
+        <div class="card">
+            <div class="img-container">
+                <span class="badge admin-badge">ID: {{ product.id }}</span>
+                <img src="{{ product.image }}" alt="{{ product.name }}">
+            </div>
+            <div class="card-content">
+                <div class="type">{{ product.type }}</div>
+                <h2>{{ product.name }}</h2>
+
+                <div class="card-footer">
+                    <div class="price">₹{{ product.price }}</div>
+
+                    <!-- DELETE INTERACTION OVERVIEW -->
+                    <!-- Pointing directly to your clean Django views routing parameter -->
+                    <form action="/delete_product/{{ product.id }}/" method="POST" style="margin:0;">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to completely remove this listing?');">
+                            Remove
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--text-muted);">
+            <h3>No products found inside the ShopX database schema.</h3>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
